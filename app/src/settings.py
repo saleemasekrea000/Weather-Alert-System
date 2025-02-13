@@ -11,6 +11,8 @@ class Settings(BaseSettings):
     postgres_username: str = "postgres"
     postgres_password: str
     postgres_db: str = "weather"
+    weather_api_key: str
+    weather_url: str = "https://api.openweathermap.org/data/2.5"
 
 
 base_settings = Settings()
