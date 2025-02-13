@@ -11,7 +11,10 @@ weather_router = APIRouter(
 
 
 @weather_router.get("/current/{city}")
-async def get_current_weather(city: str, db: Session = Depends(get_db),):
+async def get_current_weather(
+    city: str,
+    db: Session = Depends(get_db),
+):
     return await weather_service.fetch_current_weather(db, city)
 
 
