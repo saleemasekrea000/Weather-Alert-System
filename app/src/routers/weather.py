@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from src.services import weather as weather_service
+from src.dependencies import get_db
 
 weather_router = APIRouter(
     prefix="/weather",
@@ -10,8 +11,8 @@ weather_router = APIRouter(
 
 
 @weather_router.get("/current/{city}")
-async def get_current_weather(city: str):
-    return await weather_service.fetch_current_weather(city)
+async def get_current_weather(city: str, db: Session = Depends(get_db),):
+    return await weather_service.fetch_current_weather(db, city)
 
 
 @weather_router.get("/forecast{city}")
