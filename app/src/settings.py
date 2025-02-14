@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     weather_url: str = "https://api.openweathermap.org/data/2.5"
     current_weather_cache_ttl: int = 600
     forecast_cache_ttl: int = 3600
+    rate_limit_count: int = 60
+    rate_limit_window: int = 60
 
 
 base_settings = Settings()
