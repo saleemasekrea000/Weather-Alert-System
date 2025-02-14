@@ -6,3 +6,4 @@ psycopg2-binary~=2.9.9
 alembic~=1.13.2
 pytest~=8.3.2
 redis~=5.0.8
+aioredis

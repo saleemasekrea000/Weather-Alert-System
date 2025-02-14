@@ -1,8 +1,9 @@
 import httpx
+from typing import Any
 from fastapi import HTTPException
 
 
-async def send_request(url: str, params: dict):
+async def send_request(url: str, params: dict) -> dict[str, Any]:
     """
     Sends an asynchronous GET request to the specified URL with the provided parameters.
 
@@ -17,12 +18,15 @@ async def send_request(url: str, params: dict):
         HTTPException: If the HTTP request fails with a status code error or encounters an unexpected error.
     """
     # Create an asynchronous HTTP client session using httpx.
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(timeout=10) as client:
         try:
             response = await client.get(url=url, params=params)
             response.raise_for_status()
             return response.json()
         except httpx.HTTPStatusError as e:
-            raise HTTPException(status_code=e.response.status_code, detail=str(e))
+            raise HTTPException(
+                status_code=e.response.status_code,
+                detail=str(e.response.json().get("message")),
+            )
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
