@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 
-from src.routers import weather
+from src.routers import weather, alert
 from src.redis_client import r as redis_client
 
 app = FastAPI()
 
 app.include_router(weather.weather_router)
+app.include_router(alert.alert_router)
 
 
 @app.on_event("startup")

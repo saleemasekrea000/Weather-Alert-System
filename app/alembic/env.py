@@ -7,6 +7,7 @@ from alembic import context
 
 from src.database import Base, SQLALCHEMY_DATABASE_URL
 from src.models.weather import *
+from src.models.subscription import *
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
