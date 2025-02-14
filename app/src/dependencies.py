@@ -10,5 +10,7 @@ def get_db():
         db.close()
 
 
+# here not using yeild because we dont need to close the connection every time
+# we can use the same connection for multiple requests
 async def get_redis():
     return await r.get_redis()
