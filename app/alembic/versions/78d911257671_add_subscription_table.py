@@ -36,17 +36,6 @@ def upgrade() -> None:
     op.create_index(
         op.f("ix_subscriptions_email"), "subscriptions", ["email"], unique=False
     )
-    op.create_table(
-        "weather",
-        sa.Column("id", sa.UUID(), nullable=False),
-        sa.Column("city", sa.String(), nullable=False),
-        sa.Column("temperature", sa.Float(), nullable=False),
-        sa.Column("humidity", sa.Integer(), nullable=False),
-        sa.Column("wind_speed", sa.Float(), nullable=False),
-        sa.Column("pressure", sa.Integer(), nullable=True),
-        sa.PrimaryKeyConstraint("id"),
-    )
-    op.create_index(op.f("ix_weather_city"), "weather", ["city"], unique=False)
     # ### end Alembic commands ###
 
 

@@ -3,6 +3,7 @@ from fastapi import HTTPException
 
 from src.schemas import SubscriptionRequest
 from src.models.subscription import Subscription
+from src.celery_tasks.tasks import send_subscription_email
 
 
 def user_subscribe(db: Session, subscription: SubscriptionRequest):
@@ -11,11 +12,11 @@ def user_subscribe(db: Session, subscription: SubscriptionRequest):
         raise HTTPException(
             status_code=400, detail="Email is already registered for a subscription."
         )
-
     new_subscription = Subscription(**subscription.model_dump())
     db.add(new_subscription)
     db.commit()
     db.refresh(new_subscription)
+    send_subscription_email.delay(new_subscription.email, new_subscription.city)
     return new_subscription
 
 

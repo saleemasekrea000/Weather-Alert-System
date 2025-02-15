@@ -3,7 +3,7 @@ from typing import Any
 from sqlalchemy.orm import Session
 
 from src.settings import base_settings
-from src.utils.weather import send_request
+from src.utils.weather import send_request, store_weather_data
 from src.models.weather import Weather
 from src.redis_client import r
 
@@ -46,16 +46,3 @@ async def fetch_weather_forecast(r, city: str, days: int = 5) -> dict[str, Any]:
         cache_key, json.dumps(forecast_data), ex=base_settings.forecast_cache_ttl
     )
     return forecast_data
-
-
-def store_weather_data(db: Session, weather_data: dict) -> None:
-    weather = Weather(
-        city=weather_data.get("name"),
-        temperature=weather_data.get("main", {}).get("temp"),
-        pressure=weather_data.get("main", {}).get("pressure"),
-        humidity=weather_data.get("main", {}).get("humidity"),
-        wind_speed=weather_data.get("wind", {}).get("speed"),
-    )
-    db.add(weather)
-    db.commit()
-    db.refresh(weather)

@@ -1,6 +1,10 @@
 import httpx
 from typing import Any
+
+from sqlalchemy.orm import Session
 from fastapi import HTTPException
+
+from src.models.weather import Weather
 
 
 async def send_request(url: str, params: dict) -> dict[str, Any]:
@@ -30,3 +34,29 @@ async def send_request(url: str, params: dict) -> dict[str, Any]:
             )
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
+
+
+def store_weather_data(db: Session, weather_data: dict) -> None:
+    city_name = weather_data.get("name").lower()
+    # Try to fetch an existing weather record for this city
+    weather = db.query(Weather).filter(Weather.city == city_name).first()
+
+    if weather:
+        # Update existing record
+        weather.temperature = weather_data.get("main", {}).get("temp")
+        weather.pressure = weather_data.get("main", {}).get("pressure")
+        weather.humidity = weather_data.get("main", {}).get("humidity")
+        weather.wind_speed = weather_data.get("wind", {}).get("speed")
+    else:
+        # Create new record
+        weather = Weather(
+            city=city_name,
+            temperature=weather_data.get("main", {}).get("temp"),
+            pressure=weather_data.get("main", {}).get("pressure"),
+            humidity=weather_data.get("main", {}).get("humidity"),
+            wind_speed=weather_data.get("wind", {}).get("speed"),
+        )
+        db.add(weather)
+
+    db.commit()
+    db.refresh(weather)

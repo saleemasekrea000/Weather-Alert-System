@@ -21,4 +21,12 @@ class Settings(BaseSettings):
     rate_limit_window: int = 60
 
 
+class MailSettings(BaseSettings):
+    mail_host: str
+    mail_port: int
+    mail_username: str
+    mail_password: str
+
+
 base_settings = Settings()
+mail_settings = MailSettings()
