@@ -1,10 +1,10 @@
-from sqlalchemy.orm import Session
 from fastapi import HTTPException
+from sqlalchemy.orm import Session
 
-from src.schemas import SubscriptionRequest
-from src.models.subscription import Subscription
-from src.models.alert import Alert
 from src.celery_tasks.tasks import send_subscription_email
+from src.models.alert import Alert
+from src.models.subscription import Subscription
+from src.schemas import SubscriptionRequest
 
 
 def user_subscribe(db: Session, subscription: SubscriptionRequest):
@@ -23,6 +23,7 @@ def user_subscribe(db: Session, subscription: SubscriptionRequest):
 
 def get_subscripter_by_email(db: Session, email: str):
     return db.query(Subscription).filter(Subscription.email == email).first()
+
 
 def get_active_alerts(db: Session):
     return db.query(Alert).filter(Alert.is_active == True).all()

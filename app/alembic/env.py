@@ -1,14 +1,12 @@
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
+from sqlalchemy import engine_from_config, pool
 
 from alembic import context
-
-from src.database import Base, SQLALCHEMY_DATABASE_URL
-from src.models.weather import *
-from src.models.subscription import *
+from src.database import SQLALCHEMY_DATABASE_URL, Base
 from src.models.alert import *
+from src.models.subscription import *
+from src.models.weather import *
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

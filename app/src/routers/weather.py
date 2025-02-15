@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from src.dependencies import get_cache_redis, get_db, rate_limit
 from src.services import weather as weather_service
-from src.dependencies import get_db, get_cache_redis, rate_limit
 
 weather_router = APIRouter(
     prefix="/weather",

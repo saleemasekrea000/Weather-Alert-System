@@ -1,16 +1,17 @@
 import asyncio
 from datetime import datetime, timezone
-from sqlalchemy.orm import Session
-from fastapi import HTTPException
 
-from src.mailingsys.mailer import send_mail
+from fastapi import HTTPException
+from sqlalchemy.orm import Session
+
 from src.celery_app import app
+from src.database import SessionLocal
+from src.mailingsys.mailer import send_mail
+from src.models.alert import Alert
+from src.models.subscription import Subscription
+from src.models.weather import Weather
 from src.settings import base_settings
 from src.utils.weather import send_request, store_weather_data
-from src.database import SessionLocal
-from src.models.weather import Weather
-from src.models.subscription import Subscription
-from src.models.alert import Alert
 
 
 @app.task(name="send_subscription_email")

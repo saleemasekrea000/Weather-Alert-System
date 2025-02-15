@@ -1,8 +1,8 @@
-import httpx
 from typing import Any
 
-from sqlalchemy.orm import Session
+import httpx
 from fastapi import HTTPException
+from sqlalchemy.orm import Session
 
 from src.models.weather import Weather
 

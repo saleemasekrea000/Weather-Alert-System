@@ -1,11 +1,12 @@
 import json
 from typing import Any
+
 from sqlalchemy.orm import Session
 
-from src.settings import base_settings
-from src.utils.weather import send_request, store_weather_data
 from src.models.weather import Weather
 from src.redis_client import r
+from src.settings import base_settings
+from src.utils.weather import send_request, store_weather_data
 
 
 async def fetch_current_weather(db: Session, r, city: str) -> dict[str, Any]:

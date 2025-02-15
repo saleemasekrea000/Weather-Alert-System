@@ -1,7 +1,6 @@
 import time
 
-from fastapi import Depends, HTTPException
-from fastapi import Request
+from fastapi import Depends, HTTPException, Request
 
 from src.database import SessionLocal
 from src.redis_client import r

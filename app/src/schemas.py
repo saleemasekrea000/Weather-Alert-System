@@ -1,4 +1,5 @@
 import uuid
+
 from pydantic import BaseModel, EmailStr
 
 
@@ -12,8 +13,9 @@ class SubscriptionRequest(BaseModel):
     city: str
     condition_thresholds: ConditionThresholds
 
+
 class AlertResponse(BaseModel):
-    id: uuid.UUID 
+    id: uuid.UUID
     subscription_id: uuid.UUID
     condition_triggered: dict
     is_active: bool

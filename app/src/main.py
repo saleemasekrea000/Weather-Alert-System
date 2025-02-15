@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from src.routers import weather, alert
 from src.redis_client import r as redis_client
+from src.routers import alert, weather
 
 app = FastAPI()
 

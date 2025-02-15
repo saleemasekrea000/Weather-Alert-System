@@ -1,8 +1,6 @@
 import aioredis
+
 from src.settings import base_settings
-
-
-import aioredis
 
 
 class RedisClient:
