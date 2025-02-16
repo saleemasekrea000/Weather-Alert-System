@@ -8,3 +8,8 @@ pytest~=8.3.2
 redis~=5.0.8
 aioredis
 celery~=5.4.0
+trio
+respx
+anyio
+asyncio
+twisted

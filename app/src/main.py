@@ -1,8 +1,10 @@
-from fastapi import FastAPI
 from contextlib import asynccontextmanager
+
+from fastapi import FastAPI
 
 from src.redis_client import r as redis_client
 from src.routers import alert, weather
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -13,6 +15,7 @@ async def lifespan(app: FastAPI):
     yield
 
     await redis_client.close()
+
 
 app = FastAPI(lifespan=lifespan)
 

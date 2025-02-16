@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     postgres_username: str = "postgres"
     postgres_password: str
     postgres_db: str = "weather"
+    test_postgres_db: str = "test_weather"
     redis_host: str = "localhost"
     redis_port: int = "6379"
     weather_api_key: str
