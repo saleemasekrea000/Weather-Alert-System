@@ -240,11 +240,11 @@ The application will be available at [localhost:8000](http://localhost:8000/)
 
     - pros:
       - uns tasks in separate worker processes, allowing horizontal scaling across multiple servers.
-        - Celery supports periodic tasks via Celery Beat, making it ideal for scheduled jobs like cron jobs.
+      - Celery supports periodic tasks via Celery Beat, making it ideal for scheduled jobs like cron jobs.
 
     - cons:
       - increases complexity.
-        - consume more memory and CPU.
+      - consume more memory and CPU.
 
 ### Future Improvements 🚀
 
@@ -255,7 +255,8 @@ The application will be available at [localhost:8000](http://localhost:8000/)
 - Allow Users to Track Multiple Weather Conditions
 
 - Implement a More Adaptive Rate Limiting System
-  - Instead of a fixed rate limit (e.g., 60 requests/min), implement adaptive rate limiting per user
+
+- Instead of a fixed rate limit (e.g., 60 requests/min), implement adaptive rate limiting per user
 
 - Support More Notification Channels (SMS, Telegram/WhatsApp..)
 
