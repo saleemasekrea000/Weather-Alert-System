@@ -1,4 +1,4 @@
-import aioredis
+from redis.asyncio import Redis
 
 from src.settings import base_settings
 
@@ -20,10 +20,10 @@ class RedisClient:
 
     async def init(self):
         """Initialize Redis connections for caching and rate limiting."""
-        self.cache_redis = await aioredis.from_url(
+        self.cache_redis = await Redis.from_url(
             self.redis_url, db=self.cache_db, decode_responses=True
         )
-        self.rate_limit_redis = await aioredis.from_url(
+        self.rate_limit_redis = await Redis.from_url(
             self.redis_url, db=self.rate_limit_db, decode_responses=True
         )
 

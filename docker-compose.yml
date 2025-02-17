@@ -1,0 +1,57 @@
+version: "3.8" 
+
+services:
+  postgres:
+      image: postgres:15.3-alpine
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=
+        - POSTGRES_DB=weather
+        - POSTGRES_HOST_AUTH_METHOD=trust
+      ports:
+        - "5433:5432"
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - "6359:6379"
+
+  backend:
+        image: weather_alerts_backend
+        build:
+            context: app
+            dockerfile: Dockerfile
+        ports:
+            - "8000:8000"
+        depends_on:
+            - postgres
+        command: sh -c "/wait; sleep 5; alembic upgrade head; uvicorn src.main:app --host 0.0.0.0 --port 8000"
+        env_file: ".env"
+  
+
+  celery:
+    image: weather_alerts_backend
+    build:
+      context: app
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - redis
+    env_file: ".env"
+
+    #-l info for deatiled logs
+    command: python -m celery -A src.celery_app worker -l info 
+
+  celery-beat:
+    build: 
+      context: app
+      dockerfile: Dockerfile
+    container_name: celery-beat
+    restart: always
+    depends_on:
+      - redis
+      - backend
+      - celery
+    env_file: ".env"
+    command: celery -A src.celery_app beat --loglevel=debug
