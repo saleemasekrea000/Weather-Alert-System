@@ -233,7 +233,7 @@ The application will be available at [localhost:8000](http://localhost:8000/)
       - `cons`: Redis is ideal for counting requests quickly and supports features like automatic expiration
       - `pros`:
           - added complexity of managing Redis configurations
-            - I was unsure about `SlowAPI` its scalability and whether it could handle high traffic efficiently in the long term.
+          - I was unsure about `SlowAPI` its scalability and whether it could handle high traffic efficiently in the long term.
 
 - Background Task Execution:
   - i choosed celery over FastAPI’s built-in background task because the  application has multiple background tasks (such as sending emails, fetching weather updates, and triggering alerts), I preferred `Celery`. It allows task execution in a separate worker process, supports distributed task execution, and provides features like retries, `scheduling`, and monitoring.
