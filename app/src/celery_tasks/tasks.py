@@ -24,11 +24,14 @@ def send_subscription_email(user_email: str, city: str):
 
 @app.task(name="send_weather_alert_email")
 def send_weather_alert_email(user_email: str, city: str, condition_triggered: dict):
+    """
+    Sends a weather alert email to the user if their conditions are met.
+    """
     subject = f"⚠ Weather Alert for {city}!"
     body = (
         f"Dear User,\n\n"
         f"The weather condition in {city} has met your alert criteria.\n\n"
-        f"📌 **Current Condition:**\n"
+        f"📌 Current Condition:\n"
         f"- Temperature: {condition_triggered.get('temperature', 'N/A')}°C\n"
         f"- Threshold Set: {condition_triggered.get('threshold', 'N/A')}°C\n\n"
         f"Stay safe and check the latest updates!\n\n"
@@ -42,6 +45,9 @@ def send_weather_alert_email(user_email: str, city: str, condition_triggered: di
 
 @app.task(name="update_weather_data")
 def update_weather_data(city: str):
+    """
+    Updates weather data for a given city and checks if any alert conditions are triggered.
+    """
     url = f"{base_settings.weather_url}/weather"
 
     params = {
@@ -59,7 +65,9 @@ def update_weather_data(city: str):
 
 @app.task(name="update_all_weather_data")
 def update_all_weather_data():
-
+    """
+    Updates weather data for all subscribed cities.
+    """
     with SessionLocal() as db:
         cities = db.query(Subscription.city).all()
         # cities will be a list of tuples, so extract city names
@@ -98,7 +106,10 @@ def check_and_trigger_alerts(db: Session) -> None:
                 # Create a new alert
                 alert = Alert(
                     subscription_id=sub.id,
-                    condition_triggered={"temperature": sub.condition_thresholds},
+                    condition_triggered={
+                        "temperature": weather.temperature,
+                        "threshold": sub.condition_thresholds["temperature"],
+                    },
                     is_active=True,
                     triggered_at=datetime.now(timezone.utc),
                 )

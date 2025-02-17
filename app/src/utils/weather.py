@@ -37,6 +37,19 @@ async def send_request(url: str, params: dict) -> dict[str, Any]:
 
 
 def store_weather_data(db: Session, weather_data: dict) -> None:
+    """
+    Stores or updates weather data in the database.
+
+    Args:
+        db (Session): SQLAlchemy database session.
+        weather_data (dict): The weather data retrieved from the API.
+
+    Process:
+    - Checks if a weather record exists for the given city.
+    - If the record exists, it updates the temperature, pressure, humidity, and wind speed.
+    - If no record exists, it creates a new weather record and saves it.
+
+    """
     city_name = weather_data.get("name").lower()
     # Try to fetch an existing weather record for this city
     weather = db.query(Weather).filter(Weather.city == city_name).first()

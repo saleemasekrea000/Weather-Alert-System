@@ -3,6 +3,7 @@ from httpx import ASGITransport, AsyncClient
 
 from src.main import app
 
+
 # https://fastapi.tiangolo.com/advanced/async-tests/?query=integration+test#in-detail
 # ASGITransport communicates directly with the FastAPI application (app)
 #  in memory without sending a real HTTP request.

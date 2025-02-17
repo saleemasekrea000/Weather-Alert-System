@@ -1,11 +1,8 @@
 from sqlalchemy.orm import Session
 
 from src.schemas import SubscriptionRequest
-from src.services.alert import (
-    get_active_alerts,
-    get_subscripter_by_email,
-    user_subscribe,
-)
+from src.services.alert import (get_active_alerts, get_subscripter_by_email,
+                                user_subscribe)
 
 
 def test_user_subscribe(db_session: Session, subscription_data: dict):

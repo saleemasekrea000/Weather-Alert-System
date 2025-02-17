@@ -8,6 +8,24 @@ from src.schemas import SubscriptionRequest
 
 
 def user_subscribe(db: Session, subscription: SubscriptionRequest):
+    """
+    Register a new user subscription.
+
+    - db (Session): Database session.
+    - subscription (SubscriptionRequest): Subscription details, including email and city.
+
+    Raises:
+    - `HTTPException (400)`: If the email is already registered.
+
+    Process:
+    1. Check if the email is already subscribed.
+    2. If not, create a new subscription record.
+    3. Commit the subscription to the database.
+    4. Send a confirmation email asynchronously.
+
+    Returns:
+    - `Subscription`: The newly created subscription object.
+    """
     existing_subscription = get_subscripter_by_email(db, subscription.email)
     if existing_subscription:
         raise HTTPException(
@@ -21,9 +39,26 @@ def user_subscribe(db: Session, subscription: SubscriptionRequest):
     return new_subscription
 
 
-def get_subscripter_by_email(db: Session, email: str):
+def get_subscripter_by_email(db: Session, email: str) -> Subscription | None:
+    """
+    Retrieve a subscriber by email.
+
+    - db (Session): Database session.
+    - email (str): Email address to look up.
+
+    Returns:
+    - `Subscription | None`: Subscription object if found, otherwise `None`.
+    """
     return db.query(Subscription).filter(Subscription.email == email).first()
 
 
-def get_active_alerts(db: Session):
+def get_active_alerts(db: Session) -> list[Alert]:
+    """
+    Retrieve all active alerts.
+
+    - db (Session): Database session.
+
+    Returns:
+    - `list[Alert]`: A list of active alerts.
+    """
     return db.query(Alert).filter(Alert.is_active == True).all()
