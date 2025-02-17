@@ -16,6 +16,9 @@ WORKDIR /app
 # To wait for the Postgres container to be available
 COPY --from=ghcr.io/ufoscout/docker-compose-wait:latest /wait /wait
 
+# required for the health check 
+RUN apk add --no-cache curl
+
 # Requiments is copied first to cache installation of dependencies
 COPY requirements.txt /app/requirements.txt
 

@@ -24,6 +24,12 @@ services:
             dockerfile: Dockerfile
         ports:
             - "8000:8000"
+        healthcheck:
+          test: ["CMD", "curl", "-f", "http://0.0.0.0:8000/"]
+          interval: 10s
+          timeout: 10s
+          retries: 3
+          start_period: 35s
         depends_on:
             - postgres
         command: sh -c "/wait; sleep 5; alembic upgrade head; uvicorn src.main:app --host 0.0.0.0 --port 8000"
