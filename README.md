@@ -16,8 +16,9 @@ for weather information and alerts.
 
 1. [Setup Instructions](#setup-instructions)
     - [Requirements](#requirements)
-    - [Manual](#manual)
     - [Docker](#docker)
+    - [Manual](#manual)
+
 2. [API Documentation](#api-documentation)
     - [Alert Router](#alert-router)
     - [Weather Router](#weather-router)
@@ -38,6 +39,29 @@ for weather information and alerts.
 
 - Python 3.9 or higher
 - `pip` package manager.
+- Docker and Docke-compose
+
+## Docker
+- Clone this branch to your local machine
+
+```bash
+git clone git@github.com:saleemasekrea000/Weather-Alert-System-.git
+```
+
+- make sure you are in the `Weather Alert System` directory
+
+
+- Create a `.env` file in the root directory to store environment variables following the `.env.example`
+
+```bash
+sudo docker-compose build
+```
+
+```bash
+sudo docker-compose up
+```
+
+The application will be available at [localhost:8000](http://localhost:8000/)
 
 ### Manual
 
@@ -76,19 +100,7 @@ uvicorn src.main:app
 
 The application will be available at [localhost:8000](http://localhost:8000/)
 
-## Docker
 
-- make sure you are in the `Weather Alert System` directory
-
-```bash
-sudo docker-compose build
-```
-
-```bash
-sudo docker-compose up
-```
-
-The application will be available at [localhost:8000](http://localhost:8000/)
 
 ## API Documentation
 
