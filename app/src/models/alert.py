@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime, timezone
 
-from sqlalchemy import Boolean, Column, DateTime, ForeignKey
+from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Index
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import relationship
 
@@ -23,3 +23,7 @@ class Alert(Base):
     )
     subscription = relationship("Subscription", back_populates="alerts")
     is_active = Column(Boolean, default=False, nullable=False)
+    
+    __table_args__ = (
+        Index('idx_subscription_id_is_active', 'subscription_id', 'is_active'),
+    )
