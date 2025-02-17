@@ -7,7 +7,6 @@
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
 ![pytest](https://img.shields.io/badge/Pytest-302C2F?style=flat&logo=pytest&logoColor=white)
 
-
 This repository contains the weather monitoring and alert system using Python. This system will
 fetch weather data from a public API, process it asynchronously, and provide various endpoints
 for weather information and alerts.
@@ -41,7 +40,8 @@ for weather information and alerts.
 - `pip` package manager.
 - Docker and Docke-compose
 
-## Docker
+## Docker (Recommended)
+
 - Clone this branch to your local machine
 
 ```bash
@@ -49,7 +49,6 @@ git clone git@github.com:saleemasekrea000/Weather-Alert-System-.git
 ```
 
 - make sure you are in the `Weather Alert System` directory
-
 
 - Create a `.env` file in the root directory to store environment variables following the `.env.example`
 
@@ -99,8 +98,6 @@ uvicorn src.main:app
 ```
 
 The application will be available at [localhost:8000](http://localhost:8000/)
-
-
 
 ## API Documentation
 
@@ -190,6 +187,7 @@ The application will be available at [localhost:8000](http://localhost:8000/)
 - For the full database schema, refer to [Database Schema](https://dbdiagram.io/d/67b355f0263d6cf9a072e3dc).
 
 - use `Alembic` For  database migrations
+
 ### Redis
 
 - `Caches`: Redis is used to cache weather data to reduce load on the backend and speed up responses for frequently requested weather data.
@@ -246,7 +244,7 @@ The application will be available at [localhost:8000](http://localhost:8000/)
     - `Trade-off`:
       - `cons`: Redis is ideal for counting requests quickly and supports features like automatic expiration
       - `pros`:
-          - added complexity of managing Redis configurations
+        - added complexity of managing Redis configurations
           - I was unsure about `SlowAPI` its scalability and whether it could handle high traffic efficiently in the long term.
 
 - Background Task Execution:
@@ -274,7 +272,6 @@ The application will be available at [localhost:8000](http://localhost:8000/)
 
 - Support More Notification Channels (SMS, Telegram/WhatsApp..)
 
-
 ## Tests
 
 - Fixtures: Used for setting up test data and sessions
@@ -290,11 +287,13 @@ The application will be available at [localhost:8000](http://localhost:8000/)
   ```bach
   pytest
   ```
-- to check the coverage use 
+
+- to check the coverage use
 
   ```bash
   python -m coverage run -m pytest
   ```
+
   ```bach
   coverage report
   ```
@@ -325,5 +324,5 @@ The application will be available at [localhost:8000](http://localhost:8000/)
   ============================================================= 12 passed, 1 warning in 0.21s ==============================================================
 
   ```
-  </details>
 
+  </details>
