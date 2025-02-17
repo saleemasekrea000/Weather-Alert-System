@@ -1,7 +1,7 @@
 """weather model
 
 Revision ID: c7d58bb99064
-Revises: 
+Revises:
 Create Date: 2025-02-14 01:07:18.503258
 
 """

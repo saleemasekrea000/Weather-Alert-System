@@ -1,4 +1,4 @@
-"""add alert  table 
+"""add alert  table
 
 Revision ID: 167403e1b8c9
 Revises: 78d911257671

@@ -3,8 +3,6 @@ from typing import Any
 
 from sqlalchemy.orm import Session
 
-from src.models.weather import Weather
-from src.redis_client import r
 from src.settings import base_settings
 from src.utils.weather import send_request, store_weather_data
 

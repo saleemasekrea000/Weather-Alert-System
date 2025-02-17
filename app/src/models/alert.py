@@ -22,8 +22,7 @@ class Alert(Base):
         DateTime, default=lambda: datetime.now(timezone.utc), nullable=False
     )
     subscription = relationship("Subscription", back_populates="alerts")
-    is_active = Column(Boolean, default=False, nullable=False)
-    
+    is_active = Column(Boolean, default=False, nullable=False)    
     __table_args__ = (
         Index('idx_subscription_id_is_active', 'subscription_id', 'is_active'),
     )

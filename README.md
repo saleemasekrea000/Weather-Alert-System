@@ -36,7 +36,7 @@ for weather information and alerts.
 
 ### Requirements
 
-- Python 3.8 or higher
+- Python 3.9 or higher
 - `pip` package manager.
 
 ### Manual
@@ -176,6 +176,8 @@ The application will be available at [localhost:8000](http://localhost:8000/)
 - created indexes on key columns in the database to optimize query performance, especially for frequently accessed data (`city_name`, `is_active`, `sub_id`, `email` )
 
 - For the full database schema, refer to [Database Schema](https://dbdiagram.io/d/67b355f0263d6cf9a072e3dc).
+
+- use `Alembic` For  database migrations
 ### Redis
 
 - `Caches`: Redis is used to cache weather data to reduce load on the backend and speed up responses for frequently requested weather data.

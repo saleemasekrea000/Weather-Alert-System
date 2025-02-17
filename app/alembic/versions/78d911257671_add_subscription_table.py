@@ -1,4 +1,4 @@
-"""add subscription table 
+"""add subscription table
 
 Revision ID: 78d911257671
 Revises: c7d58bb99064

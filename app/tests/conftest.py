@@ -1,5 +1,3 @@
-from collections import namedtuple
-
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
@@ -28,7 +26,7 @@ def db_engine():
 def db_session(db_engine):
     TestSession = sessionmaker(autocommit=False, autoflush=False, bind=db_engine)
     connection = db_engine.connect()
-    transaction = connection.begin()
+    _ = connection.begin()
     session = TestSession(bind=connection)
 
     yield session
