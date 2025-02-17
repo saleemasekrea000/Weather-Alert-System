@@ -1,5 +1,13 @@
 # Weather Alerts System
 
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-D83C3A?style=flat&logo=redis&logoColor=white)
+![Celery](https://img.shields.io/badge/Celery-37814D?style=flat&logo=celery&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
+![pytest](https://img.shields.io/badge/Pytest-302C2F?style=flat&logo=pytest&logoColor=white)
+
+
 This repository contains the weather monitoring and alert system using Python. This system will
 fetch weather data from a public API, process it asynchronously, and provide various endpoints
 for weather information and alerts.
@@ -19,6 +27,8 @@ for weather information and alerts.
     - [Rate Limiter](#rate-limiter)
     - [Celery](#celery)
     - [Celery Tasks](#celery-tasks)
+4. [Tests](#tests)
+
 4. [Design Decisions and Trade-offs](#design-decisions-and-trade-offs)
 5. [Future Improvements](#future-improvements)
 
@@ -221,7 +231,7 @@ The application will be available at [localhost:8000](http://localhost:8000/)
 
     - `Trade-off`:
       - `cons`: Redis is ideal for counting requests quickly and supports features like automatic expiration
-        - `pros`:
+      - `pros`:
           - added complexity of managing Redis configurations
             - I was unsure about `SlowAPI` its scalability and whether it could handle high traffic efficiently in the long term.
 
@@ -248,3 +258,57 @@ The application will be available at [localhost:8000](http://localhost:8000/)
   - Instead of a fixed rate limit (e.g., 60 requests/min), implement adaptive rate limiting per user
 
 - Support More Notification Channels (SMS, Telegram/WhatsApp..)
+
+
+## Tests
+
+- Fixtures: Used for setting up test data and sessions
+- Dependency Overriding: Mocking dependencies globally for all tests
+
+- AsyncClient with ASGITransport :Used for testing FastAPI endpoints asynchronously without making real HTTP requests
+
+- Redis Mocking
+- Respx: Used for mocking HTTP requests in tests
+
+- tests are maintained in the tests dir. To run the tests, use the following command:
+
+  ```bach
+  pytest
+  ```
+- to check the coverage use 
+
+  ```bash
+  python -m coverage run -m pytest
+  ```
+  ```bach
+  coverage report
+  ```
+
+  <details>
+  <summary>output</summary>
+
+    ```cmd
+      test session starts ===================================================================
+  platform linux -- Python 3.10.12, pytest-8.3.4, pluggy-1.5.0
+  rootdir: /home/saleem/Documents/Weather Alert System/app
+  plugins: respx-0.22.0, tornasync-0.6.0.post2, anyio-4.8.0, asyncio-0.25.3, trio-0.8.0, twisted-1.14.3
+  asyncio: mode=strict, asyncio_default_fixture_loop_scope=None
+  collected 12 items                                                                                                                                       
+
+  tests/integration/test_get_current_weather_router.py ..                                                                                            [ 16%]
+  tests/integration/test_health_check.py ..                                                                                                          [ 33%]
+  tests/integration/test_subscribe_router.py ..                                                                                                      [ 50%]
+  tests/unit/test_alert_service.py ...                                                                                                               [ 75%]
+  tests/unit/test_weather_service.py ...                                                                                                             [100%]
+
+  ==================================================================== warnings summary ====================================================================
+  ../malysia/lib/python3.10/site-packages/starlette/formparsers.py:12
+    /home/saleem/Documents/Weather Alert System/malysia/lib/python3.10/site-packages/starlette/formparsers.py:12: PendingDeprecationWarning: Please use `import python_multipart` instead.
+      import multipart
+
+  -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+  ============================================================= 12 passed, 1 warning in 0.21s ==============================================================
+
+  ```
+  </details>
+
